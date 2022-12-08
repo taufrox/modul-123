@@ -1,17 +1,16 @@
-const mongoose = require('mongoose')
+const express = require('express')
+const router = express.Router()
 
-const UserSchema = new mongoose.Schema({
-    nama: {
-        type: String,
-        required: [true, 'Silahkan isikan nama'],
-        unique: true
-    },
-    email: {
-        type: String,
-        required: true,
-        unique: true,
-        match: [/^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w{2,3})+$/, 'Silahkan isikan email valid!']
-    }
-})
+const usercontroller = require('../controllers/users')
 
-module.exports = mongoose.model('User', UserSchema)
+router.get('/users', usercontroller.index)
+
+router.get('/user/:id', usercontroller.show)
+
+  router.post('/user', usercontroller.store)
+
+  router.put('/user/:id', usercontroller.update)
+
+  router.delete('/user/:id', usercontroller.delete)  
+
+  module.exports = router
